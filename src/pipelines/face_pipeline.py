@@ -2,7 +2,7 @@ import dlib
 import numpy as np
 import face_recognition_models
 from sklearn.svm import SVC
-import stramlit as st
+import streamlit as st
 
 from src.database.db import get_all_students
 
@@ -67,7 +67,7 @@ def predict_attendance(class_image_np):
   encodings = get_face_embeddings(class_image_np)
 
   detected_students = {}
-  model_data = get_trained_medel()
+  model_data = get_trained_model()
   if not model_data:
     return detected_students, [], len(encodings)
   
@@ -78,7 +78,7 @@ def predict_attendance(class_image_np):
   all_students = sorted(list(set(y_train)))  # Unique student IDs
 
   for encoding in encodings:
-    if len(all_studnents) >= 2:
+    if len(all_students) >= 2:
       predicted_id = int(clf.predict([encoding])[0])
     else:
       predicted_id = int(all_students[0])

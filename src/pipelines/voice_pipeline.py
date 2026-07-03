@@ -4,7 +4,7 @@ import streamlit as st
 import io
 import librosa
 
-@st.chache_resource
+@st.cache_resource
 def load_voice_encoder(audio_file):
   return VoiceEncoder()
 
@@ -12,7 +12,7 @@ def get_voice_embedding(audio_bytes):
   try:
     encoder = load_voice_encoder()
 
-    audio, sr = librosa.load(io.BytesIo(audio_bytes), sr=16000)
+    audio, sr = librosa.load(io.BytesIO(audio_bytes), sr=16000)
     wav = preprocess_wav(audio)
     embedding = encoder.embed_utterance(wav)
     return embedding.tolist()
